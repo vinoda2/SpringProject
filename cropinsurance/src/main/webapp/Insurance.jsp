@@ -10,22 +10,13 @@
 </head>
 <body>
 	<form action="save" method="post">
-		<div class="row">
-			<div class="col">
-				<input type="text" class="form-control" placeholder="First name"
-					aria-label="First name">
-			</div>
-			<div class="col">
-				<input type="text" class="form-control" placeholder="Last name"
-					aria-label="Last name">
-			</div>
-			<div class="col">
-				<input type="text" class="form-control" placeholder="Last name"
-					aria-label="Last name">
-			</div>
-		</div>
+		<pre>
+		cropName:<input type="text" name="cropName" placeholder="cropName">
+		cropType;<input type="text" name="cropType" placeholder="cropType">
+		insuranceType;<input type="text" name="insuranceType" placeholder="insuranceType">
+		companyName;<input type="text" name="companyName" placeholder="companyName">
 		<input type="submit" value="Save" class="btn-btn-success">
-
+</pre>
 	</form>
 </body>
 </html>
