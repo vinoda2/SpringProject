@@ -1,0 +1,10 @@
+com\xworkz\institute\dto\CourseDTO.class
+com\xworkz\institute\entity\InstituteEntity.class
+com\xworkz\institute\configuration\InstituteConfiguration.class
+com\xworkz\institute\service\InstituteServiceImp.class
+com\xworkz\institute\configuration\InstituteIWebInit.class
+com\xworkz\institute\dto\InstituteDTO.class
+com\xworkz\institute\repository\InstituteRepository.class
+com\xworkz\institute\service\InstituteService.class
+com\xworkz\institute\controller\InstituteController.class
+com\xworkz\institute\repository\InstituteRepositoryImp.class
