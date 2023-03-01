@@ -1,5 +1,8 @@
 package com.xworkz.institute.repository;
 
+import java.util.Collections;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -37,21 +40,48 @@ public class InstituteRepositoryImp implements InstituteRepository {
 		EntityManager entityManager = this.entityManagerFactory.createEntityManager();
 		InstituteEntity data = entityManager.find(InstituteEntity.class, id);
 		entityManager.close();
-
 		return data;
 	}
 
 	@Override
-	public InstituteEntity findByName(String instituteName) {
+	public List<InstituteEntity> findByName(String instituteName) {
 		System.out.println("find by Name method");
 		EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-		// EntityTransaction transaction= entityManager.getTransaction();
 		Query query = entityManager.createNamedQuery("findByName");
-		Object obj = query.getSingleResult();
-		InstituteEntity entity = (InstituteEntity) obj;
-
-		System.out.println(entity);
+		query.setParameter("iname",instituteName);
+		List<InstituteEntity> list = query.getResultList();
 		entityManager.close();
-		return entity;
+		return list;
 	}
+	
+	public InstituteEntity onDelete(int id) {
+		System.out.println("find by ID method");
+		EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+		EntityTransaction trans=entityManager.getTransaction();
+		InstituteEntity data = entityManager.find(InstituteEntity.class, id);
+		if(data!=null) {
+			trans.begin();
+			entityManager.remove(data);
+			trans.commit();
+			entityManager.close();
+			return data;
+		}
+		return InstituteRepository.super.onDelete(id);
+		
+	}
+
+	@Override
+	public boolean updateDTO(InstituteEntity entity) {
+		System.out.println("this is service method running in InstituteServiceImp");
+		EntityManager manager = this.entityManagerFactory.createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		System.out.println(entity);
+		transaction.begin();
+		manager.merge(entity);
+		transaction.commit();
+		manager.close();
+		return true;
+	}
+
+	
 }

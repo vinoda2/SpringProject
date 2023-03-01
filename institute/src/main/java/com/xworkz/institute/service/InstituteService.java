@@ -1,16 +1,26 @@
 package com.xworkz.institute.service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import com.xworkz.institute.dto.InstituteDTO;
+import com.xworkz.institute.entity.InstituteEntity;
 
-public interface InstituteService {
-	public abstract Set<ConstraintViolation<InstituteDTO>> validateAndSave(InstituteDTO dto);
+public interface InstituteService<defualt> {
+	
+	Set<ConstraintViolation<InstituteDTO>> validateAndSave(InstituteDTO dto);
+	Set<ConstraintViolation<InstituteDTO>> updateAndSave(InstituteDTO dto);
 	
 	default InstituteDTO findById(int id) {
 		return null;
 	}
-	default InstituteDTO findByName(String instituteName) {
+	default List<InstituteDTO> findByName(String instituteName) {
+		return Collections.emptyList();
+	}
+	
+	
+	default InstituteDTO onDelete(int id) {
 		return null;
 	}
 }

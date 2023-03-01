@@ -20,15 +20,5 @@
 	Name : ${dto.instituteName} <br>
 	</div>
 </form>
-<form action="searchName" method="Post">
-	Search By Name <input type="text" name="instituteName"/>
-	<input type="submit" value="search" class="btn btn-primary"/>
-	
-	<div>
-	<h3 style="color: Green;">Search Results</h3>
-	Name : ${dto.instituteName} <br>
-	email: ${dto.email}
-	</div>
-</form>
 </body>
 </html>

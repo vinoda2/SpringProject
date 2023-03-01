@@ -1,6 +1,8 @@
 package com.xworkz.institute.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -38,6 +40,7 @@ public class InstituteServiceImp implements InstituteService {
 			entity.setInstituteName(dto.getInstituteName());
 			entity.setEmail(dto.getEmail());
 			entity.setContactNumber(dto.getContactNumber());
+			entity.setId(dto.getId());
 			boolean save = this.instituteRepository.saveDTO(entity);
 			System.out.println("data saved:" + save);
 			System.out.println(entity);
@@ -56,23 +59,63 @@ public class InstituteServiceImp implements InstituteService {
 				return dto;
 			}
 		}
-		return InstituteService.super.findById(id);
+		return null;
 	}
 
-	public InstituteDTO findByName(String instituteName) {
-		System.out.println("this is name");
-		if (instituteName.equals(null)) {
-			InstituteEntity entity = this.instituteRepository.findByName(instituteName);
-			System.out.println("this is repo");
-			if (entity != null) {
-				InstituteDTO dto = new InstituteDTO();
-				dto.setInstituteName(entity.getInstituteName());
-				dto.setEmail(entity.getEmail());
-				dto.setContactNumber(entity.getContactNumber());		
-				return dto;
-				
+	public List<InstituteDTO> findByName(String instituteName) {
+		if (instituteName != null)
+			try {
+				List<InstituteDTO> list = new ArrayList<>();
+				List<InstituteEntity> entities = this.instituteRepository.findByName(instituteName);
+				for (InstituteEntity entity : entities) {
+					InstituteDTO dto = new InstituteDTO();
+					dto.setInstituteName(entity.getInstituteName());
+					dto.setEmail(entity.getEmail());
+					dto.setContactNumber(entity.getContactNumber());
+					dto.setId(entity.getId());
+					list.add(dto);
+				}
+				System.out.println("list count:" + list.size());
+				return list;
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+		return null;
+	}
+
+	@Override
+	public Set<ConstraintViolation<InstituteDTO>> updateAndSave(InstituteDTO dto) {
+		System.out.println("this is validate method in  service");
+		ValidatorFactory valid = Validation.buildDefaultValidatorFactory();
+		Validator v = valid.getValidator();
+		Set<ConstraintViolation<InstituteDTO>> violation = v.validate(dto);
+		if (violation != null && !violation.isEmpty()) {
+			System.err.println("Constraints exists in dto");
+			return violation;
+		} else {
+			System.out.println("violation are not there");
+			InstituteEntity entity = new InstituteEntity();
+			entity.setInstituteName(dto.getInstituteName());
+			entity.setEmail(dto.getEmail());
+			entity.setContactNumber(dto.getContactNumber());
+			boolean save = this.instituteRepository.updateDTO(entity);
+			System.out.println("data saved:" + save);
+			System.out.println(entity);
+			return Collections.emptySet();
 		}
-		return InstituteService.super.findByName(instituteName);
+	}
+
+	@Override
+	public InstituteDTO onDelete(int id) {
+	InstituteEntity entity=this.instituteRepository.onDelete(id);
+	if(entity!=null) {
+		InstituteDTO dto = new InstituteDTO();
+		dto.setId(entity.getId());
+		dto.setInstituteName(entity.getInstituteName());
+		dto.setEmail(entity.getEmail());
+		dto.setContactNumber(entity.getContactNumber());
+		return dto;
+	}
+		return InstituteService.super.onDelete(id);
 	}
 }

@@ -21,6 +21,11 @@
   <li class="nav-item">
     <a class="nav-link" href="SearchCourse.jsp">SearchCourse</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="SearchByName.jsp">SearchaByName</a>
+  </li>
+  
+ 
    <li class="nav-item">
     <a class="nav-link" href="About.jsp">About</a>
   </li>

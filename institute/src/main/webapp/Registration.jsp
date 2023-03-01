@@ -13,9 +13,9 @@
 
 	<form action="register" method="Post">
 		<h5>
-		<c:forEach items="${errors}" var="e">
-			<span style="color: red;">${e.message }</span>
-		</c:forEach>
+			<c:forEach items="${errors}" var="e">
+				<span style="color: red;">${e.message }</span>
+			</c:forEach>
 		</h5>
 		<div class="row mb-3">
 			<label for="inputEmail3" class="col-sm-2 col-form-label">Institute
@@ -49,7 +49,12 @@
 			</div>
 		</div>
 
-		<input type="submit" class="btn btn-success" value="submit">
+		location <select name="location">
+			<option value="">Select</option>
+			<c:forEach items="${location}" var="l">
+				<option value="${l}">${l}</option>
+			</c:forEach>
+		</select> <input type="submit" class="btn btn-success" value="submit">
 
 	</form>
 

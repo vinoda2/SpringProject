@@ -19,6 +19,7 @@ public class InstituteConfiguration {
 	public ViewResolver viewResolver() {
 		return new InternalResourceViewResolver("/", ".jsp");
 	}
+	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean() {
 		LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
