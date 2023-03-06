@@ -5,24 +5,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import lombok.Data;
+
 @Entity
-@Table(name="instituteinfo")
+@Table(name = "instituteinfo")
 @Data
-@NamedQuery(name="findByName", query ="select entity from InstituteEntity entity where entity.instituteName=:iname")
+@NamedQueries({
+		@NamedQuery(name = "findByName", query = "select entity from InstituteEntity entity where entity.instituteName=:iname"),
+		@NamedQuery(name = "findAll", query = "select entity from InstituteEntity entity") 
+		})
 public class InstituteEntity {
-	
+
 	@Id
-	@Column(name="i_id")
+	@Column(name = "i_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name="i_name")
+	@Column(name = "i_name")
 	private String instituteName;
-	@Column(name="i_email")
+	@Column(name = "i_email")
 	private String email;
-	@Column(name="i_contactnumber")
+	@Column(name = "i_contactnumber")
 	private String contactNumber;
 }

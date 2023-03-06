@@ -11,6 +11,6 @@
 <body>
 	<%@include file="Navbar.jsp"%>
 	
-	<a href="register">Registration</a>
+	<a href="register"></a>
 </body>
 </html>

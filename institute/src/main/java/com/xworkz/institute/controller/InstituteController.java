@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xworkz.institute.dto.CourseDTO;
 import com.xworkz.institute.dto.InstituteDTO;
+import com.xworkz.institute.entity.InstituteEntity;
 import com.xworkz.institute.service.InstituteService;
 
 @Controller
@@ -23,84 +24,102 @@ import com.xworkz.institute.service.InstituteService;
 public class InstituteController {
 	@Autowired
 	InstituteService instituteService;
-	
-	List<String> instituteList=Arrays.asList("Xworkz","Jspider","Pentagan","Qspider","Besent");
-	List<String> location=Arrays.asList("Rajajinager","vijayanagara","BTM","bhashyam circle");
-	
+
+	List<String> instituteList = Arrays.asList("Xworkz", "Jspider", "Pentagan", "Qspider", "Besent");
+	List<String> location = Arrays.asList("Rajajinager", "vijayanagara", "BTM", "bhashyam circle");
+
 	public InstituteController() {
 		System.out.println("InstituteController running ----");
 	}
-	
-	
+
 	@GetMapping("/register")
 	public String onUpdate(Model model) {
-		model.addAttribute("instituteList",instituteList);
-		model.addAttribute("location",location);
+		model.addAttribute("instituteList", instituteList);
+		model.addAttribute("location", location);
 		return "Registration";
 	}
-	
+
 	@PostMapping("/register")
-	public String onSave(InstituteDTO dto, Model model) {
+	public String onSave(InstituteEntity entity, Model model) {
 		System.out.println("this is onSave method ");
-		Set<ConstraintViolation<InstituteDTO>> violation = this.instituteService.validateAndSave(dto);
-		if (violation.isEmpty()) {
+		Set<ConstraintViolation<InstituteDTO>> violation = this.instituteService.validateAndSave(entity);
+		if (violation != null) {
 			System.out.println("No errors");
-			return "Success";
+			return "Registration";
 		}
-		model.addAttribute("instituteList",instituteList);
-		model.addAttribute("location",location);
+		model.addAttribute("instituteList", instituteList);
+		model.addAttribute("location", location);
 		model.addAttribute("errors", violation);
-		model.addAttribute("dto", dto);
-		System.out.println("dto:" + dto);
-		return "Registration";
+		model.addAttribute("entity", entity);
+		System.out.println("entity:" + entity);
+		return "Success";
 	}
-	
+
 	@PostMapping("/searchId")
-	public String onSearch(@RequestParam int id,Model model) {
+	public String onSearch(@RequestParam int id, Model model) {
 		System.out.println("on Search method");
-		InstituteDTO dto=this.instituteService.findById(id);
-		if(dto!=null) {
-			model.addAttribute("dto",dto);
-		}else {
-			
-			model.addAttribute("message","Date not found");
+		InstituteDTO dto = this.instituteService.findById(id);
+		if (dto != null) {
+			model.addAttribute("dtos", dto);
+		} else {
+
+			model.addAttribute("message", "Date not found");
 		}
 		return "SearchCourse";
 	}
-	
+
 	@PostMapping("/searchName")
-	public String onSearch(@RequestParam String instituteName,Model model) {
+	public String onSearch(@RequestParam String instituteName, Model model) {
 		System.out.println("on Search method");
 		System.out.println(instituteName);
-		List<InstituteDTO> dto=this.instituteService.findByName(instituteName);
-		System.out.println(dto);
-		if(dto!=null) {
-			model.addAttribute("dto",dto);
-		}else {
-			model.addAttribute("message","Date not found");
+		List<InstituteDTO> dtos = this.instituteService.findByName(instituteName);
+		System.out.println(dtos);
+		if (dtos != null) {
+			model.addAttribute("dto", dtos);
+		} else {
+			model.addAttribute("message", "Date not found");
 		}
 		return "SearchByName";
 	}
-	@GetMapping("/update")
-	public String onUpdate(InstituteDTO dto, Model model) {
-		System.out.println("this is onSave method ");
-		Set<ConstraintViolation<InstituteDTO>> violation = this.instituteService.updateAndSave(dto);
-		if (violation.isEmpty()) {
-			System.out.println("No errors");
-			return "Success";
+
+	@PostMapping("/findAll")
+	public String onFind(Model model) {
+		System.out.println("Find All method");
+		List<InstituteDTO> dtolist = this.instituteService.findAll();
+		System.out.println(dtolist.toString());
+		if (dtolist != null) {
+			model.addAttribute("dtolist", dtolist);
+		} else {
+			model.addAttribute("message", "Date not found");
 		}
-		model.addAttribute("instituteList",instituteList);
-		model.addAttribute("location",location);
-		model.addAttribute("errors", violation);
-		model.addAttribute("dto", dto);
-		System.out.println("dto:" + dto);
-		return "Registration";
+		return "FindAll";
+	}
+
+	@GetMapping("/update")
+	public String update(Model model, @RequestParam int id) {
+		System.out.println("Running in update get method");
+		InstituteDTO institutedtos = this.instituteService.findById(id);
+		model.addAttribute("dtos", institutedtos);
+		// model.addAttribute("type", type);
+		return "UpdateDetails";
 	}
 	
+	@PostMapping("/update")
+	public String onUpdate(InstituteDTO dto, Model model) {
+		System.out.println("this is on update method");
+		Set<ConstraintViolation<InstituteDTO>> violation = this.instituteService.updateAndSave(dto);
+		if (violation.size()>0) {
+			model.addAttribute("errors", violation);
+		}else {
+		model.addAttribute("message","institute details updated successfully");
+		}
+		return "UpdateDetails";
+	}
+
 	@GetMapping("/delete")
 	public String onDelete(Model model, @RequestParam int id) {
-		InstituteDTO dto=this.instituteService.onDelete(id);
-		model.addAttribute("message","data deleted");
+		InstituteDTO dto = this.instituteService.onDelete(id);
+		model.addAttribute("message", "data deleted");
 		return "SearchByName";
 	}
 }
