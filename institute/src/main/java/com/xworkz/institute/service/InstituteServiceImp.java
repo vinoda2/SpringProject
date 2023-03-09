@@ -29,24 +29,22 @@ public class InstituteServiceImp implements InstituteService {
 
 	// Save method
 	@Override
-	public Set<ConstraintViolation<InstituteEntity>> validateAndSave(InstituteEntity entity) {
+	public Set<ConstraintViolation<InstituteDTO>> validateAndSave(InstituteDTO dto) {
 		System.out.println("this is validate method in  service");
-		Set<ConstraintViolation<InstituteEntity>> violation = valid(entity);
+		Set<ConstraintViolation<InstituteDTO>> violation = valid(dto);
 		if (violation != null && !violation.isEmpty()) {
 			System.err.println("Constraints exists in dto");
 			return violation;
 		} else {
 			System.out.println("violation are not there");
-//			InstituteEntity entity = new InstituteEntity();
-//			BeanUtils.copyProperties(dto,entity);
-//			boolean save = this.instituteRepository.saveDTO(entity);
-//			System.out.println("data saved:" + save);
-//			System.out.println(entity);
-//			return Collections.emptySet();
-			// return
+			InstituteEntity entity = new InstituteEntity();
+			BeanUtils.copyProperties(dto, entity);
+			boolean save= this.instituteRepository.saveDTO(entity);
+			System.out.println(save);
+			return Collections.emptySet();
+
 		}
-		Set<ConstraintViolation<InstituteEntity>> saveDTO = instituteRepository.saveDTO(entity);
-		return saveDTO;
+		
 
 	}
 
@@ -125,10 +123,10 @@ public class InstituteServiceImp implements InstituteService {
 	}
 
 	// validate method
-	private Set<ConstraintViolation<InstituteEntity>> valid(InstituteEntity entity) {
+	private Set<ConstraintViolation<InstituteDTO>> valid(InstituteDTO dto) {
 		ValidatorFactory valid = Validation.buildDefaultValidatorFactory();
 		Validator v = valid.getValidator();
-		Set<ConstraintViolation<InstituteEntity>> violation = v.validate(entity);
+		Set<ConstraintViolation<InstituteDTO>> violation = v.validate(dto);
 		return violation;
 	}
 }

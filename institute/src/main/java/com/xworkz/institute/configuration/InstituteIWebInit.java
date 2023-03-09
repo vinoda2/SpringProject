@@ -19,14 +19,15 @@ public class InstituteIWebInit extends AbstractAnnotationConfigDispatcherServlet
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		System.out.println(" InstituteIWebInit getServletConfigClasses");
-		return new Class[] {InstituteConfiguration.class};
+		return new Class[] { InstituteConfiguration.class };
 	}
 
 	@Override
 	protected String[] getServletMappings() {
 		System.out.println(" InstituteIWebInit getServletMappings");
-		return new String[] {"/"};
+		return new String[] { "/" };
 	}
+
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();

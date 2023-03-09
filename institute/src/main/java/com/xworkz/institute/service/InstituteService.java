@@ -9,7 +9,7 @@ import com.xworkz.institute.entity.InstituteEntity;
 
 public interface InstituteService<defualt> {
 
-	Set<ConstraintViolation<InstituteEntity>> validateAndSave(InstituteEntity entity);
+	Set<ConstraintViolation<InstituteEntity>> validateAndSave(InstituteDTO dto);
 
 	Set<ConstraintViolation<InstituteDTO>> updateAndSave(InstituteDTO dto);
 

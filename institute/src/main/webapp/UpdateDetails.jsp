@@ -17,7 +17,7 @@
 		</h5>
 
 	<form action="update" method="Post">
-		<div class="row mb-3">
+		<div class="row mb-3 jumbotron">
 			<label for="inputEmail3" class="col-sm-2 col-form-label">ID</label>
 			<div class="col-sm-10">
 		<input type="number" name="id" value="${dtos.id}" readonly="readonly" class="form-control" id="inputEmail3"> <br>
@@ -46,15 +46,7 @@
 				<input type="email" class="form-control" id="inputEmail3"
 					name="email" value="${dtos.email}">
 			</div>
-		</div>
-
-
-		location <select name="location">
-			<option value="">Select</option>
-			<c:forEach items="${location}" var="l">
-				<option value="${l}">${l}</option>
-			</c:forEach>
-		</select> <input type="submit" class="btn btn-success" value="update">
+		 <input type="submit" class="btn btn-success" value="update">
 
 	</form>
 

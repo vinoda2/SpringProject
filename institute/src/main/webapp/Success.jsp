@@ -10,6 +10,9 @@
 </head>
 <body>
 <%@include file="Navbar.jsp" %>
-<h3>Registration is completed Successfully</h3>
+<div class="alert alert-success">
+  <strong>Registration is completed Successfully</strong>
+</div>
+
 </body>
 </html>

@@ -15,7 +15,7 @@ import lombok.Data;
 @Table(name = "instituteinfo")
 @Data
 @NamedQueries({
-		@NamedQuery(name = "findByName", query = "select entity from InstituteEntity entity where entity.instituteName=:iname"),
+		@NamedQuery(name = "findByName", query = "select en from InstituteEntity en where en.instituteName=:iname"),
 		@NamedQuery(name = "findAll", query = "select entity from InstituteEntity entity") 
 		})
 public class InstituteEntity {

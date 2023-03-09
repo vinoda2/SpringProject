@@ -26,7 +26,7 @@ public class InstituteRepositoryImp implements InstituteRepository {
 
 	// Save Method
 	@Override
-	public Set<ConstraintViolation<InstituteEntity>> saveDTO(InstituteEntity entity) {
+	public boolean saveDTO(InstituteEntity entity) {
 		System.out.println("this is service method running in InstituteServiceImp");
 		EntityManager manager = this.entityManagerFactory.createEntityManager();
 		EntityTransaction transaction = manager.getTransaction();
@@ -35,7 +35,7 @@ public class InstituteRepositoryImp implements InstituteRepository {
 		manager.persist(entity);
 		transaction.commit();
 		manager.close();
-		return null;
+		return true;
 
 	}
 

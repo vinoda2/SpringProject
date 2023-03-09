@@ -40,19 +40,20 @@ public class InstituteController {
 	}
 
 	@PostMapping("/register")
-	public String onSave(InstituteEntity entity, Model model) {
+	public String onSave(InstituteDTO dto, Model model) {
 		System.out.println("this is onSave method ");
-		Set<ConstraintViolation<InstituteDTO>> violation = this.instituteService.validateAndSave(entity);
+		Set<ConstraintViolation<InstituteDTO>> violation = this.instituteService.validateAndSave(dto);
 		if (violation != null) {
-			System.out.println("No errors");
+			System.err.println(" Errors");
 			return "Registration";
-		}
+		}else {
 		model.addAttribute("instituteList", instituteList);
 		model.addAttribute("location", location);
 		model.addAttribute("errors", violation);
-		model.addAttribute("entity", entity);
-		System.out.println("entity:" + entity);
+		model.addAttribute("entity", dto);
+		System.out.println("entity:" + dto);
 		return "Success";
+		}
 	}
 
 	@PostMapping("/searchId")

@@ -10,53 +10,51 @@
 </head>
 <body>
 	<%@include file="Navbar.jsp"%>
+<div align="center">
 
 	<form action="register" method="Post">
-		<h5>
-			<c:forEach items="${errors}" var="e">
-				<span style="color: red;">${e.message }</span>
-			</c:forEach>
-		</h5>
-		<div class="row mb-3">
-			<label for="inputEmail3" class="col-sm-2 col-form-label">Institute
-				Name</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="inputEmail3"
-					name="instituteName">
+		<div ><h5>
+				<c:forEach items="${errors}" var="e">
+					<span style="color: black;">${e.message }</span>
+				</c:forEach>
+			</h5>
+			
+			<div class="col-sm-3 mt-4 p-5 bg-success text-white rounded">
+			<div class="row mb-3">
+				<h4>Register here!!</h4>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="inputEmail3"
+						name="instituteName" placeholder="institute Name">
+				</div>
 			</div>
-		</div>
-		<div class="row mb-3">
-			<label for="inputEmail3" class="col-sm-2 col-form-label">Contact
-				Number</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="inputEmail3"
-					name="contactNumber">
-			</div>
-		</div>
+			<div class="row mb-3">
 
-		<div class="row mb-3">
-			<label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-			<div class="col-sm-10">
-				<input type="email" class="form-control" id="inputEmail3"
-					name="email">
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="inputEmail3"
+						name="contactNumber" placeholder="contact Number">
+				</div>
+			</div>
+
+			<div class="row mb-3">
+
+				<div class="col-sm-10">
+					<input type="email" class="form-control" id="inputEmail3"
+						name="email" placeholder="E-email">
+				</div>
+			</div>
+			<div class="row mb-3">
+
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="inputPassword3"
+						name="password" placeholder="password">
+				</div>
+			</div>
+			<div align="center">
+				<input type="submit" class="btn btn-secondary"value="submit">
 			</div>
 		</div>
-		<div class="row mb-3">
-			<label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-			<div class="col-sm-10">
-				<input type="password" class="form-control" id="inputPassword3"
-					name="password">
-			</div>
-		</div>
-
-		location <select name="location">
-			<option value="">Select</option>
-			<c:forEach items="${location}" var="l">
-				<option value="${l}">${l}</option>
-			</c:forEach>
-		</select> <input type="submit" class="btn btn-success" value="submit">
-
+		</div>		
 	</form>
-
+</div>
 </body>
 </html>

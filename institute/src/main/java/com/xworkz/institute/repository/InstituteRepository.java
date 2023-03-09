@@ -10,7 +10,7 @@ import com.xworkz.institute.entity.InstituteEntity;
 
 public interface InstituteRepository {
 
-	Set<ConstraintViolation<InstituteEntity>> saveDTO(InstituteEntity entity);
+	boolean saveDTO(InstituteEntity entity);
 
 	boolean updateDTO(InstituteEntity entity);
 
